@@ -8,6 +8,7 @@
 #
 
 library(shiny)
+library(ggplot2)
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
@@ -27,7 +28,7 @@ ui <- fluidPage(
       
       # Show a plot of the generated distribution
       mainPanel(
-         plotOutput("distPlot")
+         plotOutput("distPlot") # in UI define things that can be put in UI of app
       )
    )
 )
@@ -35,10 +36,11 @@ ui <- fluidPage(
 # Define server logic required to draw a histogram
 server <- function(input, output) {
    
-   output$distPlot <- renderPlot({
+   output$distPlot <- renderPlot({ # backend code 
       # generate bins based on input$bins from ui.R
       x    <- faithful[, 2] 
-      bins <- seq(min(x), max(x), length.out = input$bins + 1)
+      
+      bins <- seq(min(x), max(x), length.out = input$bins + 1) # input from "bins" scroller
       
       # draw the histogram with the specified number of bins
       hist(x, breaks = bins, col = 'blue', border = 'yellow')
